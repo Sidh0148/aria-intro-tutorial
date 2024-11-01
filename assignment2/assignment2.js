@@ -1,25 +1,17 @@
-// Initialize the variables
-var submitBtn = null;
+document.addEventListener("DOMContentLoaded", function() {
+	const form = document.getElementById("contactForm");
+	const statusMessage = document.getElementById("statusMessage");
+	const submitBtn = document.getElementById("submitBtn");
 
+	form.addEventListener("submit", function(event) {
+		// Prevent form from redirecting to the next page
+		event.preventDefault();
+		
+		// Display the status message
+		statusMessage.style.display = "block";
+		
+		// Set focus back to the submit button
+		submitBtn.focus();
+	});
+});
 
-// Get the Submit Button and the div that we'll make an aria live region
-submitBtn = document.getElementById("submitBtn");
-
-
-// Some error handling
-if (submitBtn) {
-        // Listen for the "click" event on the button; when someone clicks it, run function sendComments(e)
-        submitBtn.addEventListener("click", sendComments, false);
-} else {
-        console.error ("Did not get the submit button for some reason.");
-}
-
-function sendComments (e) {
-	//e.preventDefault();  // When uncommented, this will prevent the form from submitting when the button is clicked
-
-	// This is the message we want added to the aria live region
-	let msg = "Thank you for sending your comments. Your comments have already been thrown into the dustbin of the Interwebs, and will be ignored at once!"	;
-
-	//messageCentre.innerText = msg;  // Uncomment to add the msg text to the live region.
-	
-} // End of sendComments
