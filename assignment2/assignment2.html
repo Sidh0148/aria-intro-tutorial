@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<title>ARIA Assignment 2</title>
-		<link rel="Stylesheet" href="assignment2.css" type="text/css">
-	</head>
-	<body>
-		<header>
-			<h1>ARIA Assignment 2</h1>
-			<h2>What to do:</h2>
-			<ol>
-				<li>Examine this form and:
-					<ol>
-						<li>Find the accessibility problem with this form; and</li>
-						<li>Fix it using ARIA</li>
-					</ol>
-				</li>
-				<li>Modify the form so that when you click the Submit button:
-					<ol>
-						<li>You stay on this page</li>
-						<li>Your keyboard focus stays on the Submit button</li>
-						<li>Add the text from <a href="contacted.html">ARIA Assignment 2 - Comments Not Sent</a> page to this page, and expose it to assistive technology.  (ie:  implement a status message.)</li>
-					</ol>
-				</li>
-			</ol>
-		</header>
-		<main>
-			<h2>Contact Us</h2>
-			<form method="GET" action="contacted.html" autocomplete="on">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>ARIA Assignment 2</title>
+	<link rel="stylesheet" href="assignment2.css" type="text/css">
+</head>
+<body>
+	<header>
+		<h1>ARIA Assignment 2</h1>
+		<h2>What to do:</h2>
+		<ol>
+			<li>Examine this form and:
+				<ol>
+					<li>Find the accessibility problem with this form; and</li>
+					<li>Fix it using ARIA</li>
+				</ol>
+			</li>
+			<li>Modify the form so that when you click the Submit button:
+				<ol>
+					<li>You stay on this page</li>
+					<li>Your keyboard focus stays on the Submit button</li>
+					<li>Add the text from <a href="contacted.html">ARIA Assignment 2 - Comments Not Sent</a> page to this page, and expose it to assistive technology. (i.e., implement a status message.)</li>
+				</ol>
+			</li>
+		</ol>
+	</header>
+	<main>
+		<h2>Contact Us</h2>
+		<form id="contactForm" method="GET" action="contacted.html" autocomplete="on">
 			<div class="formDiv">
 				<label for="name">Your name:</label>
 				<input type="text" id="name" name="name" autocomplete="name">
@@ -45,18 +45,22 @@
 				<input type="checkbox" id="respond" name="respond">
 				<label for="respond">I would like a response</label>
 			</div>
-			<div class="formDiv">
-			</div>
 			<p id="practiceDesc">Note that this site is a practice site, and your comments won't actually go anywhere, and no matter what, you will <strong>not</strong> receive a response, except your own bitter disappointment.</p>
 			<div class="formDiv">
 				<button type="submit" id="submitBtn" name="submitBtn">Submit</button>
 			</div>
-			</form>
-		</main>
-		<footer>
-			<p>Go back to <a href="../">ARIA Intro Assignments</a>.</p>
-			<p>Copyright: Andrew Nordlund 2023</p>
-		</footer>
-		<script src="assignment2.js"></script>
-	</body>
+		</form>
+		<!-- Status message container -->
+		<div id="statusMessage" role="status" aria-live="polite" style="display: none;">
+			<h3>ARIA Assignment 2 - Comments Not Sent</h3>
+			<p>Your form has been submitted, but as this is a practice site, the comments have not actually been sent. You will not receive a response, only your own bitter disappointment.</p>
+		</div>
+	</main>
+	<footer>
+		<p>Go back to <a href="../">ARIA Intro Assignments</a>.</p>
+		<p>Copyright: Andrew Nordlund 2023</p>
+	</footer>
+	<script src="assignment2.js"></script>
+</body>
 </html>
+
