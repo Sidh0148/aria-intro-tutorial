@@ -1,103 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<title>ARIA Assignment 3</title>
-		<link rel="Stylesheet" href="assignment3.css" type="text/css">
-	</head>
-	<body>
-		<header>
-			<h1>ARIA Assignment 3</h1>
-			<h2>What to do:</h2>
-			<p>Add the appropriate ARIA to make this tabbed interface accessible.</p>
-		</header>
-		<main>
-			<h2>Tabbed Interface</h2>
-			<p>All text here is from <a href="http://fillerama.io/" target="_blank" rel="noopener noreferrer">Fillerama</a>:</p>
-	
-			<div class="tabHolder">
-				<ul class="tabList" role="tablist">
-					<li class="selectedTab">
-						<button id="adTabBtn" class="tabBtn" role="tab" aria-selected="true" aria-controls="adTabPanel" aria-posinset="1" aria-setsize="3" tabindex="0">Arrested Development</button>
-					</li>
-					<li>
-						<button id="drWTabBtn" class="tabBtn" role="tab" aria-selected="false" aria-controls="drWTabPanel" aria-posinset="2" aria-setsize="3" tabindex="-1">Doctor Who</button>
-					</li>
-					<li>
-						<button id="futuramaTabBtn" class="tabBtn" role="tab" aria-selected="false" aria-controls="futuramaTabPanel" aria-posinset="3" aria-setsize="3" tabindex="-1">Futurama</button>
-					</li>
-				</ul>
-				<div class="panels">
-					<div id="adTabPanel" class="tabPanel" role="tabpanel" aria-labelledby="adTabBtn" tabindex="0">
-						<h2 id="adh2">Arrested Development Filler</h2>
-						<h3>I'm afraid I just blue myself.</h3>
-						<p>I'm half machine. I'm a monster. Well, what do you expect, mother? What's Spanish for "I know you speak English?" Marry me.</p>
-						<p>Across from where? I hear the jury's still out on science. <strong>It's called 'taking advantage.'</strong> <em>It's what gets you ahead in life.</em> Say goodbye to these, because it's the last time!</p>
-						<h3>As you may or may not know, Lindsay and I have hit a bit of a rough patch.</h3>
-						<p>Army had half a day. That's what it said on 'Ask Jeeves.' Guy's a pro. I've opened a door here that I regret.</p>
-						<ol>
-							<li>Oh, you're gonna be in a coma, all right.</li>
-							<li>As you may or may not know, Lindsay and I have hit a bit of a rough patch.</li>
-							<li>There's so many poorly chosen words in that sentence.</li>
-						</ol>
-						<h3>I hear the jury's still out on science.</h3>
-						<p>I don't criticize you! And if you're worried about criticism, sometimes a diet is the best defense.</p>
-						<ul>
-							<li>Michael!</li>
-							<li>I care deeply for nature.</li>
-							<li>Get me a vodka rocks. And a piece of toast.</li>
-						</ul>
-					</div>
-					<div id="drWTabPanel" class="hidden tabPanel" role="tabpanel" aria-labelledby="drWTabBtn" tabindex="0">
-						<h2 id="drwh2">Doctor Who Filler</h2>
-						<h3>They're not aliens, they're Earth…liens!</h3>
-						<p>It's a fez. I wear a fez now. Fezes are cool. I am the Doctor, and you are the Daleks!</p>
-						<p>You've swallowed a planet! Aw, you're all Mr. Grumpy Face today. You hate me; you want to kill me! <strong>Well, go on!</strong> <em>Kill me!</em> KILL ME!</p>
-						<h3>You know when grown-ups tell you 'everything's going to be fine'?</h3>
-						<p>Father Christmas. Santa Claus. Or as I've always known him: Jeff. Aw, you're all Mr. Grumpy Face today.</p>
-						<ol>
-							<li>Stop talking, brain thinking. Hush.</li>
-							<li>You know how I sometimes have really brilliant ideas?</li>
-							<li>*Insistently* Bow ties are cool!</li>
-						</ol>
-						<h3>*Insistently* Bow ties are cool!</h3>
-						<p>The way I see it, every life is a pile of good things and bad things…hey.</p>
-						<ul>
-							<li>I'm the Doctor, I'm worse than everyone's aunt.</li>
-							<li>It's a fez. I wear a fez now. Fezes are cool.</li>
-							<li>The alien mothership is in orbit here.</li>
-						</ul>
-					</div>
-					<div id="futuramaTabPanel" class="hidden tabPanel" role="tabpanel" aria-labelledby="futuramaTabBtn" tabindex="0">
-						<h2 id="futh2">Futurama Filler</h2>
-						<h3>Daddy Bender, we're hungry.</h3>
-						<p>I just want to talk. It has nothing to do with mating. Fry, that doesn't make sense.</p>
-						<p>Bender?! You stole the atom. I want to live! There are still too many things I don't own!</p>
-						<h3>Is today's hectic lifestyle making you tense and impatient?</h3>
-						<p>Then throw her in the laundry room, which will hereafter be referred to as "the brig".</p>
-						<ol>
-							<li>What are their names?</li>
-							<li>Bender, I didn't know you liked cooking. That's so cute.</li>
-							<li>File not found.</li>
-						</ol>
-						<h3>Belligerent and numerous.</h3>
-						<p>I was all of history's great robot actors - Acting Unit 0.8; Thespomat; David Duchovny!</p>
-						<ul>
-							<li>The alien mothership is in orbit here. Checkmate.</li>
-							<li>Yeah, I do that with my stupidness.</li>
-							<li>Bender, you risked your life to save me!</li>
-						</ul>			
-					</div>
-				</div>
-			</div>
-		</main>
-		<footer>
-			<p>Go back to <a href="../">ARIA Intro Assignments</a>.</p>
-			<p>Copyright: Andrew Nordlund 2023</p>
-		</footer>
-		<script src="assignment3.js"></script>
-	</body>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ARIA Assignment 3</title>
+    <link rel="stylesheet" href="assignment3.css" type="text/css">
+</head>
+<body>
+    <header>
+        <h1>ARIA Assignment 3</h1>
+        <h2>What to do:</h2>
+        <p>Add the appropriate ARIA to make this tabbed interface accessible.</p>
+    </header>
+    <main>
+        <h2>Tabbed Interface</h2>
+        <p>All text here is from <a href="http://fillerama.io/" target="_blank" rel="noopener noreferrer">Fillerama</a>:</p>
+
+        <!-- ARIA live region for screen reader announcement -->
+        <div id="announcement" aria-live="polite" style="position:absolute; width:1px; height:1px; overflow:hidden;">
+            Tab selected: Arrested Development
+        </div>
+
+        <div class="tabHolder">
+            <ul class="tabList" role="tablist">
+                <li>
+                    <button id="adTabBtn" class="tabBtn" role="tab" aria-selected="true" aria-controls="adTabPanel" aria-posinset="1" aria-setsize="3" tabindex="0">Arrested Development</button>
+                </li>
+                <li>
+                    <button id="drWTabBtn" class="tabBtn" role="tab" aria-selected="false" aria-controls="drWTabPanel" aria-posinset="2" aria-setsize="3" tabindex="-1">Doctor Who</button>
+                </li>
+                <li>
+                    <button id="futuramaTabBtn" class="tabBtn" role="tab" aria-selected="false" aria-controls="futuramaTabPanel" aria-posinset="3" aria-setsize="3" tabindex="-1">Futurama</button>
+                </li>
+            </ul>
+
+            <div class="panels">
+                <!-- Content for Arrested Development tab -->
+                <div id="adTabPanel" class="tabPanel" role="tabpanel" aria-labelledby="adTabBtn" tabindex="0">
+                    <h2>Arrested Development Filler</h2>
+                    <h3>I'm afraid I just blue myself.</h3>
+                    <p>I'm half machine. I'm a monster. Well, what do you expect, mother? What's Spanish for "I know you speak English?" Marry me.</p>
+                    <p>Across from where? I hear the jury's still out on science. <strong>It's called 'taking advantage.'</strong> <em>It's what gets you ahead in life.</em> Say goodbye to these, because it's the last time!</p>
+                    <h3>As you may or may not know, Lindsay and I have hit a bit of a rough patch.</h3>
+                    <p>Army had half a day. That's what it said on 'Ask Jeeves.' Guy's a pro. I've opened a door here that I regret.</p>
+                    <ol>
+                        <li>Oh, you're gonna be in a coma, all right.</li>
+                        <li>As you may or may not know, Lindsay and I have hit a bit of a rough patch.</li>
+                        <li>There's so many poorly chosen words in that sentence.</li>
+                    </ol>
+                    <h3>I hear the jury's still out on science.</h3>
+                    <p>I don't criticize you! And if you're worried about criticism, sometimes a diet is the best defense.</p>
+                    <ul>
+                        <li>Michael!</li>
+                        <li>I care deeply for nature.</li>
+                        <li>Get me a vodka rocks. And a piece of toast.</li>
+                    </ul>
+                </div>
+
+                <!-- Content for Doctor Who tab -->
+                <div id="drWTabPanel" class="hidden tabPanel" role="tabpanel" aria-labelledby="drWTabBtn" tabindex="-1">
+                    <h2>Doctor Who Filler</h2>
+                    <h3>They're not aliens, they're Earth…liens!</h3>
+                    <p>It's a fez. I wear a fez now. Fezes are cool. I am the Doctor, and you are the Daleks!</p>
+                    <p>You've swallowed a planet! Aw, you're all Mr. Grumpy Face today. You hate me; you want to kill me! <strong>Well, go on!</strong> <em>Kill me!</em> KILL ME!</p>
+                    <h3>You know when grown-ups tell you 'everything's going to be fine'?</h3>
+                    <p>Father Christmas. Santa Claus. Or as I've always known him: Jeff. Aw, you're all Mr. Grumpy Face today.</p>
+                    <ol>
+                        <li>Stop talking, brain thinking. Hush.</li>
+                        <li>You know how I sometimes have really brilliant ideas?</li>
+                        <li>*Insistently* Bow ties are cool!</li>
+                    </ol>
+                    <h3>*Insistently* Bow ties are cool!</h3>
+                    <p>The way I see it, every life is a pile of good things and bad things…hey.</p>
+                    <ul>
+                        <li>I'm the Doctor, I'm worse than everyone's aunt.</li>
+                        <li>It's a fez. I wear a fez now. Fezes are cool.</li>
+                        <li>The alien mothership is in orbit here.</li>
+                    </ul>
+                </div>
+
+                <!-- Content for Futurama tab -->
+                <div id="futuramaTabPanel" class="hidden tabPanel" role="tabpanel" aria-labelledby="futuramaTabBtn" tabindex="-1">
+                    <h2>Futurama Filler</h2>
+                    <h3>Daddy Bender, we're hungry.</h3>
+                    <p>I just want to talk. It has nothing to do with mating. Fry, that doesn't make sense.</p>
+                    <p>Bender?! You stole the atom. I want to live! There are still too many things I don't own!</p>
+                    <h3>Is today's hectic lifestyle making you tense and impatient?</h3>
+                    <p>Then throw her in the laundry room, which will hereafter be referred to as "the brig".</p>
+                    <ol>
+                        <li>What are their names?</li>
+                        <li>Bender, I didn't know you liked cooking. That's so cute.</li>
+                        <li>File not found.</li>
+                    </ol>
+                    <h3>Belligerent and numerous.</h3>
+                    <p>I was all of history's great robot actors - Acting Unit 0.8; Thespomat; David Duchovny!</p>
+                    <ul>
+                        <li>The alien mothership is in orbit here. Checkmate.</li>
+                        <li>Yeah, I do that with my stupidness.</li>
+                        <li>Bender, you risked your life to save me!</li>
+                    </ul>            
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Go back to <a href="../">ARIA Intro Assignments</a>.</p>
+        <p>Copyright: Andrew Nordlund 2023</p>
+    </footer>
+    <script>
+        const tabs = document.querySelectorAll('.tabBtn');
+        const panels = document.querySelectorAll('.tabPanel');
+        const announcement = document.getElementById('announcement');
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                // Remove selected state from all tabs and hide all panels
+                tabs.forEach((t, i) => {
+                    t.setAttribute('aria-selected', 'false');
+                    t.setAttribute('tabindex', '-1');
+                    panels[i].classList.add('hidden');
+                });
+
+                // Set selected state for clicked tab and display corresponding panel
+                tab.setAttribute('aria-selected', 'true');
+                tab.setAttribute('tabindex', '0');
+                panels[index].classList.remove('hidden');
+
+                // Update live region for screen reader announcement
+                announcement.textContent = `Tab selected: ${tab.textContent}`;
+                
+                // Set focus to the selected tab for screen reader focus
+                tab.focus();
+            });
+        });
+    </script>
+</body>
 </html>
 
 
