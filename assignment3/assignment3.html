@@ -19,7 +19,7 @@
 			<div class="tabHolder">
 				<ul class="tabList" role="tablist">
 					<li class="selectedTab">
-						<button id="adTabBtn" class="tabBtn" role="tab" aria-selected="true" aria-controls="adTabPanel">Arrested Development</button>
+						<button id="adTabBtn" class="tabBtn" role="tab" aria-selected="true" aria-controls="adTabPanel" tabindex="0">Arrested Development</button>
 					</li>
 					<li>
 						<button id="drWTabBtn" class="tabBtn" role="tab" aria-selected="false" aria-controls="drWTabPanel" tabindex="-1">Doctor Who</button>
@@ -29,7 +29,7 @@
 					</li>
 				</ul>
 				<div class="panels">
-					<div id="adTabPanel" class="tabPanel" role="tabpanel" aria-labelledby="adTabBtn">
+					<div id="adTabPanel" class="tabPanel" role="tabpanel" aria-labelledby="adTabBtn" tabindex="0">
 						<h2 id="adh2">Arrested Development Filler</h2>
 						<h3>I'm afraid I just blue myself.</h3>
 						<p>I'm half machine. I'm a monster. Well, what do you expect, mother? What's Spanish for "I know you speak English?" Marry me.</p>
@@ -49,7 +49,7 @@
 							<li>Get me a vodka rocks. And a piece of toast.</li>
 						</ul>
 					</div>
-					<div id="drWTabPanel" class="hidden tabPanel" role="tabpanel" aria-labelledby="drWTabBtn">
+					<div id="drWTabPanel" class="hidden tabPanel" role="tabpanel" aria-labelledby="drWTabBtn" tabindex="0">
 						<h2 id="drwh2">Doctor Who Filler</h2>
 						<h3>They're not aliens, they're Earth…liens!</h3>
 						<p>It's a fez. I wear a fez now. Fezes are cool. I am the Doctor, and you are the Daleks!</p>
@@ -69,7 +69,7 @@
 							<li>The alien mothership is in orbit here.</li>
 						</ul>
 					</div>
-					<div id="futuramaTabPanel" class="hidden tabPanel" role="tabpanel" aria-labelledby="futuramaTabBtn">
+					<div id="futuramaTabPanel" class="hidden tabPanel" role="tabpanel" aria-labelledby="futuramaTabBtn" tabindex="0">
 						<h2 id="futh2">Futurama Filler</h2>
 						<h3>Daddy Bender, we're hungry.</h3>
 						<p>I just want to talk. It has nothing to do with mating. Fry, that doesn't make sense.</p>
@@ -99,3 +99,4 @@
 		<script src="assignment3.js"></script>
 	</body>
 </html>
+
