@@ -1,106 +1,47 @@
-// Define the Tabs class
-class Tabs {
-    constructor(groupNode) {
-        this.tablistNode = groupNode;
-        this.tabs = Array.from(this.tablistNode.querySelectorAll(".tabBtn"));
-        this.tabPanels = [];
+// First, set some variables
+let tabBtns = [];	// We'll put each tab button into an array
+let tabPanels = {};	// We'll put each tab panel into an associative array
 
-        // Initialize the first and last tab references
-        this.firstTab = this.tabs[0];
-        this.lastTab = this.tabs[this.tabs.length - 1];
-
-        // Set up each tab and its corresponding panel
-        this.tabs.forEach(tab => {
-            const tabPanel = document.getElementById(tab.getAttribute('aria-controls'));
-            tab.tabIndex = -1;
-            tab.setAttribute('aria-selected', 'false');
-            tabPanel.setAttribute('role', 'tabpanel'); // Adding role for accessibility
-            this.tabPanels.push(tabPanel);
-
-            // Event listeners for keyboard and click events
-            tab.addEventListener("keydown", this.onKeydown.bind(this));
-            tab.addEventListener("click", this.onClick.bind(this));
-        });
-
-        this.setSelectedTab(this.firstTab); // Set the initial selected tab
-    }
-
-    setSelectedTab(currentTab) {
-        this.tabs.forEach((tab, index) => {
-            const tabPanel = this.tabPanels[index];
-            if (currentTab === tab) {
-                tab.setAttribute('aria-selected', 'true');
-                tab.removeAttribute('tabindex');
-                tabPanel.classList.remove("hidden");
-            } else {
-                tab.setAttribute('aria-selected', 'false');
-                tab.tabIndex = -1;
-                tabPanel.classList.add("hidden");
-            }
-        });
-    }
-
-    moveFocusToTab(currentTab) {
-        currentTab.focus();
-    }
-
-    moveFocusToPreviousTab(currentTab) {
-        const index = this.tabs.indexOf(currentTab);
-        const prevTab = index === 0 ? this.lastTab : this.tabs[index - 1];
-        this.moveFocusToTab(prevTab);
-    }
-
-    moveFocusToNextTab(currentTab) {
-        const index = this.tabs.indexOf(currentTab);
-        const nextTab = index === this.lastTab ? this.firstTab : this.tabs[index + 1];
-        this.moveFocusToTab(nextTab);
-    }
-
-    // EVENT HANDLERS
-    onKeydown(event) {
-        const tgt = event.currentTarget;
-
-        switch (event.key) {
-            case 'ArrowLeft':
-                this.moveFocusToPreviousTab(tgt);
-                event.preventDefault(); // Prevent scrolling
-                break;
-
-            case 'ArrowRight':
-                this.moveFocusToNextTab(tgt);
-                event.preventDefault(); // Prevent scrolling
-                break;
-
-            case 'Home':
-                this.moveFocusToTab(this.firstTab);
-                event.preventDefault(); // Prevent scrolling
-                break;
-
-            case 'End':
-                this.moveFocusToTab(this.lastTab);
-                event.preventDefault(); // Prevent scrolling
-                break;
-
-            case 'Enter':
-            case ' ':
-                this.setSelectedTab(tgt);
-                event.preventDefault(); // Prevent form submission or scrolling
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    onClick(event) {
-        this.setSelectedTab(event.currentTarget);
-    }
+tabBtns = Array.from(document.querySelectorAll(".tabBtn"));	// Get all elements with class "tabBnt", and stick them into a proper array
+for (let i =0 ; i < tabBtns.length; i++) {			// Then go through them, for each of them...
+	tabBtns[i].addEventListener("click", selectTab, false);	// Run selectTab() whenever a user clicks on a tab
+	tabBtns[i].addEventListener("keyup", focusTab, false);	// When someone presses a key, run focusTab() (if it's an arrow key)
 }
 
-// Initialize the tabs on window load
-window.addEventListener('load', () => {
-    const tablists = document.querySelectorAll('[role=tablist].manual');
-    tablists.forEach(tablist => new Tabs(tablist));
-});
+let x = document.querySelectorAll(".tabPanel");		// get all elements with a class of tabPanel
+for (let i =0 ; i < x.length; i++) {			// go through them, and
+	tabPanels[x[i].id] = x[i];			// add them to an associative array with the element's unique ID value as the key, and the element as the value
+}
 
+// If left (37) or right (39) arrow keys are pressed, change the focus on the tab buttons, but do not activate.
+function focusTab (e) {
+	if (e.keyCode == 39) {
+		tabBtns[(tabBtns.indexOf(e.target) + 1) % 3].focus();	// Focus the next tab button.  If it's the last one, focus the first one.
+	} else if (e.keyCode == 37) {
+		tabBtns[((tabBtns.indexOf(e.target) - 1) < 0 ? 2 : tabBtns.indexOf(e.target) - 1)].focus();	// Focus the previous tab button. If it's the first one, focus the last.
+	}
+} // End of focusTab
+
+// If tab button is clicked (mouse, touch, Enter/Space) expose that tab's panel and hide the others
+function selectTab(e) {
+	let tabPanelID = e.target.id.replace("Btn", "Panel");	// e.target is the specific tab button that was clicked; get the ID value of its tab panel
+
+	for (var i = 0; i < tabBtns.length; i++) {				// for each of the tab buttons
+		if (tabBtns[i].id == e.target.id) {				// If we're dealing with the tab button that was clicked....
+			tabPanels[tabPanelID].classList.remove("hidden");	// Remove the "hidden" class from the tabl panel. (ie: show it)
+			tabBtns[i].removeAttribute("tabindex");			// Remove the tabindex attribute
+			tabBtns[i].parentNode.classList.add("selectedTab");	// Add class "selectedTab" to the <li> which contains the tab button
+
+			// Uncomment the following line
+			//tabBtns[i].setAttribute("aria-selected", "true");	// Sets aria-selected="true" on the selected tab.
+		} else {										// If the botton we're cycling through is not the one that was pressed...
+			tabPanels[tabBtns[i].id.replace("Btn", "Panel")].classList.add("hidden");	// Hide the corresponding Panel
+			tabBtns[i].setAttribute("tabindex", "-1");					// Add tabindex="-1" so we can send focus there programmatically (in focusTab() above)
+			tabBtns[i].parentNode.classList.remove("selectedTab");				// Remove class "selectedTab" from the <li> which contains the tab button
+
+			// Uncomment the following line
+			//tabBtns[i].setAttribute("aria-selected", "false");	// Sets aria-selected="false" on the non-selected tabs
+		}
+	}
+} // End of selectTab
 
