@@ -1,65 +1,43 @@
-class Tabs {
-    constructor(tablistNode) {
-        this.tablistNode = tablistNode;
-        this.tabBtns = Array.from(this.tablistNode.querySelectorAll(".tabBtn"));
-        this.tabPanels = {};
-
-        // Initialize tab panels
-        this.tabBtns.forEach(tabBtn => {
-            const panelId = tabBtn.getAttribute('aria-controls');
-            this.tabPanels[panelId] = document.getElementById(panelId);
-            tabBtn.setAttribute('tabindex', '-1'); // Set initial tabindex
-            tabBtn.setAttribute('aria-selected', 'false');
-
-            // Attach event listeners
-            tabBtn.addEventListener("click", this.selectTab.bind(this));
-            tabBtn.addEventListener("keyup", this.focusTab.bind(this));
-        });
-
-        this.setSelectedTab(this.tabBtns[0]); // Set the first tab as selected by default
-    }
-
-    setSelectedTab(currentTab) {
-        this.tabBtns.forEach((tabBtn, index) => {
-            const panelId = tabBtn.getAttribute('aria-controls');
-            const panel = this.tabPanels[panelId];
-
-            if (tabBtn === currentTab) {
-                tabBtn.setAttribute('aria-selected', 'true');
-                tabBtn.removeAttribute("tabindex");
-                panel.classList.remove("hidden");
-            } else {
-                tabBtn.setAttribute('aria-selected', 'false');
-                tabBtn.setAttribute("tabindex", "-1");
-                panel.classList.add("hidden");
-            }
-        });
-    }
-
-    focusTab(event) {
-        const currentTab = event.target;
-
-        if (event.keyCode === 39) { // Right arrow
-            const nextIndex = (this.tabBtns.indexOf(currentTab) + 1) % this.tabBtns.length;
-            this.tabBtns[nextIndex].focus();
-        } else if (event.keyCode === 37) { // Left arrow
-            const prevIndex = (this.tabBtns.indexOf(currentTab) - 1 + this.tabBtns.length) % this.tabBtns.length;
-            this.tabBtns[prevIndex].focus();
-        } else if (event.key === 'Enter' || event.key === ' ') { // Enter or Space
-            this.selectTab(event);
-        }
-    }
-
-    selectTab(event) {
-        const selectedTab = event.currentTarget;
-        this.setSelectedTab(selectedTab);
+let tabBtns = []; 
+let tabPanels = {};
+tabBtns = Array.from(document.querySelectorAll(".tabBtn"));
+for (let i = 0; i < tabBtns.length; i++) {
+    tabBtns[i].addEventListener("click", selectTab, false);
+    tabBtns[i].addEventListener("keyup", focusTab, false);
+}
+let x = document.querySelectorAll(".tabPanel");
+for (let i = 0; i < x.length; i++) {
+    tabPanels[x[i].id] = x[i];
+}
+function focusTab(e) {
+    if (e.keyCode == 39) {
+        tabBtns[(tabBtns.indexOf(e.target) + 1) % 3].focus();
+    } else if (e.keyCode == 37) {
+        tabBtns[((tabBtns.indexOf(e.target) - 1) < 0 ? 2 : tabBtns.indexOf(e.target) - 1)].focus();
     }
 }
+let nextIndex = (tabBtns.indexOf(e.target) + 1) % tabBtns.length;
+let prevIndex = (tabBtns.indexOf(e.target) - 1 + tabBtns.length) % tabBtns.length;
+function selectTab(e) {
+    let tabPanelID = e.target.id.replace("Btn", "Panel");
 
-// Initialize the Tabs on window load
-window.addEventListener('load', () => {
-    const tablists = document.querySelectorAll('[role="tablist"]');
-    tablists.forEach(tablist => new Tabs(tablist));
-});
+    for (var i = 0; i < tabBtns.length; i++) {
+        if (tabBtns[i].id == e.target.id) {
+            tabPanels[tabPanelID].classList.remove("hidden");
+            tabBtns[i].removeAttribute("tabindex");
+            tabBtns[i].parentNode.classList.add("selectedTab");
+
+            // Uncomment this line
+            // tabBtns[i].setAttribute("aria-selected", "true");
+        } else {
+            tabPanels[tabBtns[i].id.replace("Btn", "Panel")].classList.add("hidden");
+            tabBtns[i].setAttribute("tabindex", "-1");
+            tabBtns[i].parentNode.classList.remove("selectedTab");
+
+            // Uncomment this line
+            // tabBtns[i].setAttribute("aria-selected", "false");
+        }
+    }
+}
 
 
