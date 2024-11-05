@@ -1,43 +1,127 @@
-let tabBtns = []; 
-let tabPanels = {};
-tabBtns = Array.from(document.querySelectorAll(".tabBtn"));
-for (let i = 0; i < tabBtns.length; i++) {
-    tabBtns[i].addEventListener("click", selectTab, false);
-    tabBtns[i].addEventListener("keyup", focusTab, false);
-}
-let x = document.querySelectorAll(".tabPanel");
-for (let i = 0; i < x.length; i++) {
-    tabPanels[x[i].id] = x[i];
-}
-function focusTab(e) {
-    if (e.keyCode == 39) {
-        tabBtns[(tabBtns.indexOf(e.target) + 1) % 3].focus();
-    } else if (e.keyCode == 37) {
-        tabBtns[((tabBtns.indexOf(e.target) - 1) < 0 ? 2 : tabBtns.indexOf(e.target) - 1)].focus();
+class TabsManual {
+  constructor(groupNode) {
+    this.tablistNode = groupNode;
+
+    this.tabs = [];
+
+    this.firstTab = null;
+    this.lastTab = null;
+
+    this.tabs = Array.from(this.tablistNode.querySelectorAll('[role=tab]'));
+    this.tabpanels = [];
+
+    for (var i = 0; i < this.tabs.length; i += 1) {
+      var tab = this.tabs[i];
+      var tabpanel = document.getElementById(tab.getAttribute('aria-controls'));
+
+      tab.tabIndex = -1;
+      tab.setAttribute('aria-selected', 'false');
+      this.tabpanels.push(tabpanel);
+
+      tab.addEventListener('keydown', this.onKeydown.bind(this));
+      tab.addEventListener('click', this.onClick.bind(this));
+
+      if (!this.firstTab) {
+        this.firstTab = tab;
+      }
+      this.lastTab = tab;
     }
-}
-let nextIndex = (tabBtns.indexOf(e.target) + 1) % tabBtns.length;
-let prevIndex = (tabBtns.indexOf(e.target) - 1 + tabBtns.length) % tabBtns.length;
-function selectTab(e) {
-    let tabPanelID = e.target.id.replace("Btn", "Panel");
 
-    for (var i = 0; i < tabBtns.length; i++) {
-        if (tabBtns[i].id == e.target.id) {
-            tabPanels[tabPanelID].classList.remove("hidden");
-            tabBtns[i].removeAttribute("tabindex");
-            tabBtns[i].parentNode.classList.add("selectedTab");
+    this.setSelectedTab(this.firstTab);
+  }
 
-            // Uncomment this line
-            // tabBtns[i].setAttribute("aria-selected", "true");
-        } else {
-            tabPanels[tabBtns[i].id.replace("Btn", "Panel")].classList.add("hidden");
-            tabBtns[i].setAttribute("tabindex", "-1");
-            tabBtns[i].parentNode.classList.remove("selectedTab");
-
-            // Uncomment this line
-            // tabBtns[i].setAttribute("aria-selected", "false");
-        }
+  setSelectedTab(currentTab) {
+    for (var i = 0; i < this.tabs.length; i += 1) {
+      var tab = this.tabs[i];
+      if (currentTab === tab) {
+        tab.setAttribute('aria-selected', 'true');
+        tab.removeAttribute('tabindex');
+        this.tabpanels[i].classList.remove('is-hidden');
+      } else {
+        tab.setAttribute('aria-selected', 'false');
+        tab.tabIndex = -1;
+        this.tabpanels[i].classList.add('is-hidden');
+      }
     }
+  }
+
+  moveFocusToTab(currentTab) {
+    currentTab.focus();
+  }
+
+  moveFocusToPreviousTab(currentTab) {
+    var index;
+
+    if (currentTab === this.firstTab) {
+      this.moveFocusToTab(this.lastTab);
+    } else {
+      index = this.tabs.indexOf(currentTab);
+      this.moveFocusToTab(this.tabs[index - 1]);
+    }
+  }
+
+  moveFocusToNextTab(currentTab) {
+    var index;
+
+    if (currentTab === this.lastTab) {
+      this.moveFocusToTab(this.firstTab);
+    } else {
+      index = this.tabs.indexOf(currentTab);
+      this.moveFocusToTab(this.tabs[index + 1]);
+    }
+  }
+
+  /* EVENT HANDLERS */
+
+  onKeydown(event) {
+    var tgt = event.currentTarget,
+      flag = false;
+
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.moveFocusToPreviousTab(tgt);
+        flag = true;
+        break;
+
+      case 'ArrowRight':
+        this.moveFocusToNextTab(tgt);
+        flag = true;
+        break;
+
+      case 'Home':
+        this.moveFocusToTab(this.firstTab);
+        flag = true;
+        break;
+
+      case 'End':
+        this.moveFocusToTab(this.lastTab);
+        flag = true;
+        break;
+
+      default:
+        break;
+    }
+
+    if (flag) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  }
+
+  // Since this example uses buttons for the tabs, the click onr also is activated
+  // with the space and enter keys
+  onClick(event) {
+    this.setSelectedTab(event.currentTarget);
+  }
 }
+
+// Initialize tablist
+
+window.addEventListener('load', function () {
+  var tablists = document.querySelectorAll('[role=tablist].manual');
+  for (var i = 0; i < tablists.length; i++) {
+    new TabsManual(tablists[i]);
+  }
+});
 
 
