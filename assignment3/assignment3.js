@@ -30,19 +30,21 @@ function selectTab(e) {
 		if (tabBtns[i].id == e.target.id) {
 			tabPanels[tabPanelID].classList.remove("hidden");
 			tabBtns[i].removeAttribute("tabindex");
-			tabBtns[i].setAttribute("aria-selected", "true");
 			tabBtns[i].parentNode.classList.add("selectedTab");
 
-			// Focus on the active panel to announce it to screen readers
-			tabPanels[tabPanelID].focus();
+			// Enable aria-selected on active tab
+			tabBtns[i].setAttribute("aria-selected", "true");
 		} else {
 			tabPanels[tabBtns[i].id.replace("Btn", "Panel")].classList.add("hidden");
 			tabBtns[i].setAttribute("tabindex", "-1");
-			tabBtns[i].setAttribute("aria-selected", "false");
 			tabBtns[i].parentNode.classList.remove("selectedTab");
+
+			// Disable aria-selected on inactive tabs
+			tabBtns[i].setAttribute("aria-selected", "false");
 		}
 	}
 }
+
 } // End of selectTab
 
 
