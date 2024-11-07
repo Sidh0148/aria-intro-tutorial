@@ -43,8 +43,8 @@ function selectTab(e) {
 			//tabBtns[i].setAttribute("aria-selected", "false");	// Sets aria-selected="false" on the non-selected tabs
 		}
 	}
-
 } // End of selectTab
+
 
 
 
