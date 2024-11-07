@@ -24,26 +24,27 @@ function focusTab (e) {
 
 // If tab button is clicked (mouse, touch, Enter/Space) expose that tab's panel and hide the others
 function selectTab(e) {
-	let tabPanelID = e.target.id.replace("Btn", "Panel");	// e.target is the specific tab button that was clicked; get the ID value of its tab panel
+	let tabPanelID = e.target.id.replace("Btn", "Panel");
 
-	for (var i = 0; i < tabBtns.length; i++) {				// for each of the tab buttons
-		if (tabBtns[i].id == e.target.id) {				// If we're dealing with the tab button that was clicked....
-			tabPanels[tabPanelID].classList.remove("hidden");	// Remove the "hidden" class from the tabl panel. (ie: show it)
-			tabBtns[i].removeAttribute("tabindex");			// Remove the tabindex attribute
-			tabBtns[i].parentNode.classList.add("selectedTab");	// Add class "selectedTab" to the <li> which contains the tab button
+	for (var i = 0; i < tabBtns.length; i++) {
+		if (tabBtns[i].id == e.target.id) {
+			tabPanels[tabPanelID].classList.remove("hidden");
+			tabBtns[i].removeAttribute("tabindex");
+			tabBtns[i].parentNode.classList.add("selectedTab");
 
-			// Uncomment the following line
-			//tabBtns[i].setAttribute("aria-selected", "true");	// Sets aria-selected="true" on the selected tab.
-		} else {										// If the botton we're cycling through is not the one that was pressed...
-			tabPanels[tabBtns[i].id.replace("Btn", "Panel")].classList.add("hidden");	// Hide the corresponding Panel
-			tabBtns[i].setAttribute("tabindex", "-1");					// Add tabindex="-1" so we can send focus there programmatically (in focusTab() above)
-			tabBtns[i].parentNode.classList.remove("selectedTab");				// Remove class "selectedTab" from the <li> which contains the tab button
+			// Enable aria-selected on active tab
+			tabBtns[i].setAttribute("aria-selected", "true");
+		} else {
+			tabPanels[tabBtns[i].id.replace("Btn", "Panel")].classList.add("hidden");
+			tabBtns[i].setAttribute("tabindex", "-1");
+			tabBtns[i].parentNode.classList.remove("selectedTab");
 
-			// Uncomment the following line
-			//tabBtns[i].setAttribute("aria-selected", "false");	// Sets aria-selected="false" on the non-selected tabs
+			// Disable aria-selected on inactive tabs
+			tabBtns[i].setAttribute("aria-selected", "false");
 		}
 	}
-} // End of selectTab
+}
+ // End of selectTab
 
 
 
